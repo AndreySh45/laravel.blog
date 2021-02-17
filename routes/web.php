@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+
 Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
  function () {
     Route::get('/', 'MainController@index')->name('admin.index');
@@ -21,6 +25,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
     Route::resource('/posts', 'PostController');
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'guest', 'namespace' => 'App\Http\Controllers'], function () {
+    Route::get('/register', 'UserController@create')->name('register.create');
+    Route::post('/register', 'UserController@store')->name('register.store');
+    Route::get('/login', 'UserController@loginForm')->name('login.create');
+    Route::post('/login', 'UserController@login')->name('login');
 });
