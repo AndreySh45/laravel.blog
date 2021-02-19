@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admin'],
  function () {
     Route::get('/', 'MainController@index')->name('admin.index');
     Route::resource('/categories', 'CategoryController');
@@ -25,9 +27,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'],
     Route::resource('/posts', 'PostController');
 });
 
-Route::group(['middleware' => 'guest', 'namespace' => 'App\Http\Controllers'], function () {
+Route::group(['middleware' => 'guest','namespace' => 'App\Http\Controllers'], function () {
     Route::get('/register', 'UserController@create')->name('register.create');
     Route::post('/register', 'UserController@store')->name('register.store');
     Route::get('/login', 'UserController@loginForm')->name('login.create');
     Route::post('/login', 'UserController@login')->name('login');
 });
+
+Route::get('/logout', [UserController::class, "logout"])->name('logout')->middleware('auth');
