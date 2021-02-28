@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[PostController::class, "index"] )->name('home');
-Route::get('/article',[PostController::class, "show"] )->name('posts.single');
-
+Route::get('/article/{slug}',[PostController::class, "show"] )->name('posts.single');
+Route::get('/category/{slug}',[CategoryController::class, "show"] )->name('categories.single');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admin'],
  function () {
