@@ -39,16 +39,10 @@
                                 <a class="nav-link" href="{{ route('home')}}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="marketing-category.html">Marketing</a>
+                                <a class="nav-link" href="{{ route('categories.single', ['slug' => 'marketing' ])}}">Marketing</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="marketing-category.html">Make Money</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="marketing-blog.html">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="marketing-contact.html">Contact Us</a>
+                                <a class="nav-link" href="{{ route('categories.single', ['slug' => 'make-money' ])}}">Make Money</a>
                             </li>
                         </ul>
                         <form class="form-inline">
