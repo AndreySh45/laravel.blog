@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Markedia::'.$post->title)
+@section('title', 'Markedia :: '.$post->title)
 @section('content')
     <div class="page-wrapper">
         <div class="blog-title-area">
