@@ -12,7 +12,7 @@ class SearchController extends Controller
             's' => 'required',
         ]);
         $s = $request->s;
-        $posts = Post::like($s)->with('category')->paginate(2);
+        $posts = Post::like($s)->with('category')->orderBy('id', 'desc')->paginate(2);
 
         return view('posts.search', compact('posts', 's'));
    }

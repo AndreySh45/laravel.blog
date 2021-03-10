@@ -28,15 +28,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-        view()->composer('layouts.sidebar', function($view){
+        view()->composer(['layouts.sidebar','layouts.footer'], function($view){
             if(Cache::has('cats')){
                 $cats = Cache::get('cats');
             } else {
                 $cats = Category::withCount('posts')->orderBy('posts_count', 'desc')->get();
                 Cache::put('cats', $cats, 40);
             }
+            $view->with('recent_posts', Post::orderBy('created_at', 'desc')->limit(3)->get());
             $view->with('popular_posts', Post::orderBy('views', 'desc')->limit(3)->get());
             $view->with('cats', $cats);
         });
+
+
     }
 }
